@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="game-container">
         <div class="game-info">
@@ -21,9 +23,9 @@
             </div>
             <button id="start-btn">Iniciar Juego</button>
         </div>
-        
+
         <div class="game-board-container">
-            <canvas id="tetris" width="240" height="400"></canvas>
+            <canvas id="tetris" width="480" height="800"></canvas>
             <div id="game-over" class="overlay hidden">
                 <h2>GAME OVER</h2>
                 <p>Puntuación Final: <span id="final-score">0</span></p>
@@ -44,4 +46,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

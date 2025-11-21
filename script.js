@@ -8,7 +8,7 @@ const gameOverScreen = document.getElementById('game-over');
 const finalScoreElement = document.getElementById('final-score');
 const pauseScreen = document.getElementById('pause-screen');
 
-context.scale(20, 20);
+context.scale(40, 40);
 
 // Game constants
 const COLS = 12;
