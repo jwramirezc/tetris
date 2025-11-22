@@ -36,7 +36,9 @@ function resizeCanvas() {
     availableWidth = viewportWidth - sidePanelsWidth * 2 - gap * 2;
   } else {
     // Layout vertical: más espacio horizontal pero menos vertical
-    availableHeight = viewportHeight - 400; // espacio para paneles arriba/abajo
+    // En móviles, el game-info es más compacto (una fila), así que reservamos menos espacio
+    const mobileInfoHeight = window.innerWidth <= 768 ? 80 : 120;
+    availableHeight = viewportHeight - mobileInfoHeight - 180; // espacio reducido para paneles y controles
   }
 
   // Calcular tamaño máximo basado en proporción del juego (12:20 = 0.6)

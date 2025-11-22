@@ -228,19 +228,53 @@ canvas {
     .game-container {
         flex-direction: column;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
         padding: 1rem;
         width: 100%;
     }
     
     .game-info {
         width: 100%;
-        max-width: 300px;
+        max-width: 100%;
+        flex-direction: row;
+        gap: 0.75rem;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .game-info h1 {
+        width: 100%;
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .score-box, .level-box {
+        padding: 0.5rem 0.75rem;
+        min-width: 80px;
+        flex: 1;
+        max-width: 120px;
+    }
+    
+    .score-box h2, .level-box h2 {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .score-box span, .level-box span {
+        font-size: 1.2rem;
+    }
+    
+    .game-info button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        flex: 1;
+        max-width: 150px;
     }
     
     .controls-info {
-        width: 100%;
-        max-width: 300px;
+        display: none;
     }
 }
 
@@ -250,24 +284,51 @@ canvas {
         padding-bottom: 10rem; /* Espacio para los controles móviles */
     }
     
-    h1 {
-        font-size: 2rem;
-    }
-    
     .game-container {
-        padding: 0.75rem;
-        gap: 1rem;
+        padding: 0.5rem;
+        gap: 0.75rem;
     }
     
-    .game-info, .controls-info {
-        min-width: auto;
+    .game-info {
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
-        max-width: 100%;
+        padding: 0.5rem;
     }
     
-    button {
-        padding: 0.8rem;
+    .game-info h1 {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .score-box, .level-box {
+        padding: 0.4rem 0.6rem;
+        min-width: 70px;
+        flex: 1;
+    }
+    
+    .score-box h2, .level-box h2 {
+        font-size: 0.65rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .score-box span, .level-box span {
         font-size: 1rem;
+    }
+    
+    .game-info button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+        flex: 1;
+        max-width: 130px;
+    }
+    
+    .controls-info {
+        display: none;
     }
     
     .mobile-controls {
@@ -281,35 +342,51 @@ canvas {
         padding-bottom: 9rem; /* Espacio para los controles móviles */
     }
     
-    h1 {
-        font-size: 1.5rem;
-    }
-    
-    span {
-        font-size: 1.2rem;
-    }
-    
     .game-container {
-        padding: 0.5rem;
-        gap: 0.75rem;
+        padding: 0.25rem;
+        gap: 0.5rem;
     }
     
     .game-info {
-        gap: 1rem;
+        flex-direction: row;
+        gap: 0.4rem;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0.4rem;
+    }
+    
+    .game-info h1 {
+        width: 100%;
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
     }
     
     .score-box, .level-box {
-        padding: 0.8rem;
+        padding: 0.35rem 0.5rem;
+        min-width: 60px;
+        flex: 1;
+    }
+    
+    .score-box h2, .level-box h2 {
+        font-size: 0.6rem;
+        margin-bottom: 0.15rem;
+    }
+    
+    .score-box span, .level-box span {
+        font-size: 0.9rem;
+    }
+    
+    .game-info button {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+        flex: 1;
+        max-width: 110px;
     }
     
     .controls-info {
-        padding: 0.75rem;
-        font-size: 0.8rem;
-    }
-    
-    button {
-        padding: 0.7rem;
-        font-size: 0.9rem;
+        display: none;
     }
     
     .mobile-btn {
