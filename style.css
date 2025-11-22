@@ -12,10 +12,17 @@ body {
     font-family: 'Outfit', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
     margin: 0;
-    overflow: hidden;
+    padding: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .game-container {
@@ -27,6 +34,11 @@ body {
     border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    max-width: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .game-info {
@@ -34,6 +46,8 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     min-width: 150px;
+    max-width: 100%;
+    flex-shrink: 0;
 }
 
 h1 {
@@ -87,6 +101,18 @@ button:active {
     border: 2px solid #333;
     border-radius: 4px;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    max-width: 100%;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.game-board-container canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 canvas {
@@ -117,9 +143,100 @@ canvas {
     padding: 1.5rem;
     border-radius: 10px;
     font-size: 0.9rem;
+    max-width: 100%;
+    flex-shrink: 0;
 }
 
 .controls-info p {
     margin: 0.5rem 0;
     color: #ccc;
+}
+
+/* Media queries para responsive */
+@media (max-width: 1024px) {
+    body {
+        padding: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        width: 100%;
+    }
+    
+    .game-info {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .controls-info {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 0.5rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .game-container {
+        padding: 0.75rem;
+        gap: 1rem;
+    }
+    
+    .game-info, .controls-info {
+        min-width: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    button {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.25rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    span {
+        font-size: 1.2rem;
+    }
+    
+    .game-container {
+        padding: 0.5rem;
+        gap: 0.75rem;
+    }
+    
+    .game-info {
+        gap: 1rem;
+    }
+    
+    .score-box, .level-box {
+        padding: 0.8rem;
+    }
+    
+    .controls-info {
+        padding: 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
 }

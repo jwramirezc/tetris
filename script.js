@@ -8,12 +8,87 @@ const gameOverScreen = document.getElementById('game-over');
 const finalScoreElement = document.getElementById('final-score');
 const pauseScreen = document.getElementById('pause-screen');
 
-context.scale(40, 40);
-
 // Game constants
 const COLS = 12;
 const ROWS = 20;
 const BLOCK_SIZE = 20; // Scaled by context.scale
+
+// Función para ajustar el tamaño del canvas de forma responsive
+function resizeCanvas() {
+  const container = canvas.parentElement;
+  const gameContainer = document.querySelector('.game-container');
+
+  // Calcular espacio disponible considerando padding y gaps
+  const containerPadding = 40; // padding del game-container
+  const gap = 32; // gap entre elementos
+  const sidePanelsWidth = 300; // ancho aproximado de paneles laterales
+
+  // Calcular espacio disponible en viewport
+  const viewportWidth = window.innerWidth - containerPadding * 2;
+  const viewportHeight = window.innerHeight - containerPadding * 2;
+
+  // En pantallas grandes, considerar paneles laterales
+  let availableWidth = viewportWidth;
+  let availableHeight = viewportHeight;
+
+  if (window.innerWidth > 1024) {
+    // Layout horizontal: restar espacio de paneles laterales
+    availableWidth = viewportWidth - sidePanelsWidth * 2 - gap * 2;
+  } else {
+    // Layout vertical: más espacio horizontal pero menos vertical
+    availableHeight = viewportHeight - 400; // espacio para paneles arriba/abajo
+  }
+
+  // Calcular tamaño máximo basado en proporción del juego (12:20 = 0.6)
+  const maxWidthByHeight = availableHeight * (COLS / ROWS);
+  const maxHeightByWidth = availableWidth * (ROWS / COLS);
+
+  // Elegir el tamaño que quepa en ambos sentidos
+  let canvasWidth = Math.min(availableWidth, maxWidthByHeight);
+  let canvasHeight = canvasWidth * (ROWS / COLS);
+
+  // Si la altura calculada es mayor que la disponible, ajustar por altura
+  if (canvasHeight > availableHeight) {
+    canvasHeight = availableHeight;
+    canvasWidth = canvasHeight * (COLS / ROWS);
+  }
+
+  // Asegurar un tamaño mínimo pero que no exceda el disponible
+  const minSize = Math.min(200, availableWidth * 0.8);
+  if (canvasWidth < minSize) {
+    canvasWidth = minSize;
+    canvasHeight = canvasWidth * (ROWS / COLS);
+    // Si aún no cabe, reducir más
+    if (canvasHeight > availableHeight) {
+      canvasHeight = availableHeight * 0.9;
+      canvasWidth = canvasHeight * (COLS / ROWS);
+    }
+  }
+
+  // Asegurar que no exceda los límites
+  canvasWidth = Math.min(canvasWidth, availableWidth);
+  canvasHeight = Math.min(canvasHeight, availableHeight);
+
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
+
+  // Calcular la escala basada en el nuevo tamaño
+  const scaleX = canvasWidth / COLS;
+  const scaleY = canvasHeight / ROWS;
+
+  // Resetear transformaciones y aplicar nueva escala
+  context.setTransform(1, 0, 0, 1, 0, 0);
+  context.scale(scaleX, scaleY);
+
+  // Redibujar si el juego ya está iniciado
+  if (player.matrix || arena.some(row => row.some(cell => cell !== 0))) {
+    draw();
+  }
+}
+
+// Ajustar el canvas al cargar y al redimensionar la ventana
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 // Game state
 let dropCounter = 0;
@@ -123,7 +198,7 @@ function drawMatrix(matrix, offset) {
 // Dibuja el estado completo del juego: limpia el canvas, dibuja la arena y la pieza actual del jugador
 function draw() {
   context.fillStyle = '#0f0f1a';
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillRect(0, 0, COLS, ROWS);
 
   drawMatrix(arena, { x: 0, y: 0 });
   if (player.matrix) {
