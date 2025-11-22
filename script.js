@@ -81,14 +81,13 @@ function resizeCanvas() {
   context.scale(scaleX, scaleY);
 
   // Redibujar si el juego ya está iniciado
-  if (player.matrix || arena.some(row => row.some(cell => cell !== 0))) {
+  if (
+    typeof player !== 'undefined' &&
+    (player.matrix || arena.some(row => row.some(cell => cell !== 0)))
+  ) {
     draw();
   }
 }
-
-// Ajustar el canvas al cargar y al redimensionar la ventana
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
 // Game state
 let dropCounter = 0;
@@ -109,6 +108,10 @@ const player = {
   matrix: null,
   score: 0,
 };
+
+// Ajustar el canvas al cargar y al redimensionar la ventana
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 // Tetromino colors
 const colors = [
@@ -336,7 +339,13 @@ function resetGame() {
   isGameOver = false;
   isPaused = false;
   gameOverScreen.classList.add('hidden');
+  pauseScreen.classList.add('hidden');
+  dropCounter = 0;
+  lastTime = performance.now();
   playerReset();
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+  }
   update();
 }
 
@@ -398,3 +407,82 @@ startBtn.addEventListener('click', () => {
 restartBtn.addEventListener('click', () => {
   resetGame();
 });
+
+// Controles móviles
+const mobileLeftBtn = document.getElementById('mobile-left');
+const mobileRightBtn = document.getElementById('mobile-right');
+const mobileRotateBtn = document.getElementById('mobile-rotate');
+const mobileDownBtn = document.getElementById('mobile-down');
+const mobilePauseBtn = document.getElementById('mobile-pause');
+
+// Función para prevenir el comportamiento por defecto en móviles
+function preventDefault(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+if (mobileLeftBtn) {
+  mobileLeftBtn.addEventListener('touchstart', e => {
+    preventDefault(e);
+    if (!isGameOver && !isPaused) {
+      playerMove(-1);
+    }
+  });
+  mobileLeftBtn.addEventListener('click', () => {
+    if (!isGameOver && !isPaused) {
+      playerMove(-1);
+    }
+  });
+}
+
+if (mobileRightBtn) {
+  mobileRightBtn.addEventListener('touchstart', e => {
+    preventDefault(e);
+    if (!isGameOver && !isPaused) {
+      playerMove(1);
+    }
+  });
+  mobileRightBtn.addEventListener('click', () => {
+    if (!isGameOver && !isPaused) {
+      playerMove(1);
+    }
+  });
+}
+
+if (mobileRotateBtn) {
+  mobileRotateBtn.addEventListener('touchstart', e => {
+    preventDefault(e);
+    if (!isGameOver && !isPaused) {
+      playerRotate(1);
+    }
+  });
+  mobileRotateBtn.addEventListener('click', () => {
+    if (!isGameOver && !isPaused) {
+      playerRotate(1);
+    }
+  });
+}
+
+if (mobileDownBtn) {
+  mobileDownBtn.addEventListener('touchstart', e => {
+    preventDefault(e);
+    if (!isGameOver && !isPaused) {
+      playerDrop();
+    }
+  });
+  mobileDownBtn.addEventListener('click', () => {
+    if (!isGameOver && !isPaused) {
+      playerDrop();
+    }
+  });
+}
+
+if (mobilePauseBtn) {
+  mobilePauseBtn.addEventListener('touchstart', e => {
+    preventDefault(e);
+    togglePause();
+  });
+  mobilePauseBtn.addEventListener('click', () => {
+    togglePause();
+  });
+}
